@@ -431,3 +431,115 @@ color:#2b2b2b;
     width:100%;
     margin-bottom: 0;
 }
+
+/* ============================================
+   目录（TOC）样式
+   ============================================ */
+
+/* --- 侧边栏目录 --- */
+.md-sidebar-toc.md-sidebar-toc {
+    font-size: 13px;
+    line-height: 2.0;
+
+    // H1 级别：蓝色醒目
+    a[data-depth="1"] {
+        font-weight: 600;
+        font-size: 13px;
+        color: #40B8FA;
+    }
+
+    // H2 级别：深色正文
+    a[data-depth="2"] {
+        font-weight: 500;
+        font-size: 13px;
+        color: #2b2b2b;
+    }
+
+    // H3 级别：灰色辅助
+    a[data-depth="3"] {
+        font-weight: 400;
+        font-size: 12px;
+        color: #595959;
+    }
+
+    // H4+ 级别：浅灰低调
+    a[data-depth="4"],
+    a[data-depth="5"],
+    a[data-depth="6"] {
+        font-weight: 400;
+        font-size: 12px;
+        color: #8c8c8c;
+    }
+
+    // 缩小嵌套缩进（默认缩进太大）
+    ul, ol {
+        padding-left: 14px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+
+    // 顶层列表
+    & > ul, & > ol {
+        padding-left: 8px;
+    }
+
+    // 当前高亮项
+    .highlight, .active {
+        background: RGBA(64, 184, 250, 0.08);
+        border-radius: 3px;
+    }
+}
+
+/* --- 内联目录（[TOC] / @import "[TOC]"）--- */
+.markdown-preview.markdown-preview .md-toc {
+    font-size: 13px;
+    line-height: 2.0;
+    padding: 12px 16px;
+    margin: 16px 0;
+    border: 1px solid RGBA(64, 184, 250, 0.25);
+    border-radius: 6px;
+    background: RGBA(64, 184, 250, 0.03);
+
+    a {
+        text-decoration: none;
+        border-bottom: none;
+    }
+
+    // H1 级别
+    .md-toc-h1 a, a.md-toc-h1 {
+        font-weight: 600;
+        color: #40B8FA;
+    }
+
+    // H2 级别
+    .md-toc-h2 a, a.md-toc-h2 {
+        font-weight: 500;
+        color: #2b2b2b;
+    }
+
+    // H3 级别
+    .md-toc-h3 a, a.md-toc-h3 {
+        font-weight: 400;
+        font-size: 12px;
+        color: #595959;
+    }
+
+    // H4+ 级别
+    .md-toc-h4 a, a.md-toc-h4,
+    .md-toc-h5 a, a.md-toc-h5,
+    .md-toc-h6 a, a.md-toc-h6 {
+        font-weight: 400;
+        font-size: 12px;
+        color: #8c8c8c;
+    }
+
+    // 缩小缩进
+    ul, ol {
+        padding-left: 14px;
+        margin: 2px 0;
+    }
+
+    & > ul, & > ol {
+        padding-left: 8px;
+    }
+}
