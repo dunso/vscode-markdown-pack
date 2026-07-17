@@ -46,9 +46,29 @@ for ext in "${EXTENSIONS[@]}"; do
     fi
 done
 
-# ---- Step 2: 写入设置 ----
+# ---- Step 2: 安装 style.less 自定义样式 ----
 echo ""
-echo "━━━ 第 2 步：写入 Markdown 设置 ━━━"
+echo "━━━ 第 2 步：安装 Markdown 预览样式 ━━━"
+
+MUME_DIR="$HOME/.local/state/mume"
+mkdir -p "$MUME_DIR"
+
+# 同时兼容旧版 MPE 路径 (~/.mume/)
+LEGACY_MUME_DIR="$HOME/.mume"
+mkdir -p "$LEGACY_MUME_DIR"
+
+if [ -f "$SCRIPT_DIR/style.less" ]; then
+    cp "$SCRIPT_DIR/style.less" "$MUME_DIR/style.less"
+    cp "$SCRIPT_DIR/style.less" "$LEGACY_MUME_DIR/style.less"
+    echo -e "${GREEN}[✓]${NC} style.less → $MUME_DIR/style.less"
+    echo -e "${GREEN}[✓]${NC} style.less → $LEGACY_MUME_DIR/style.less (兼容旧版)"
+else
+    echo -e "${YELLOW}[!]${NC} 未找到 style.less，跳过"
+fi
+
+# ---- Step 3: 写入设置 ----
+echo ""
+echo "━━━ 第 3 步：写入 Markdown 设置 ━━━"
 
 # 用 Python 合并 JSON，避免 jq 依赖
 /usr/bin/python3 "$SCRIPT_DIR/merge_settings.py"
@@ -62,6 +82,9 @@ echo "已安装的扩展："
 echo "  • Markdown Preview Enhanced — 增强预览"
 echo "  • Markdown Preview Enhanced with Litvis — 可视化叙事"
 echo "  • Draw.io Integration — 图表集成"
+echo ""
+echo "已部署的样式："
+echo "  • style.less → ~/.local/state/mume/style.less"
 echo ""
 echo "已应用的设置："
 echo "  • D2 图表主题 → 302"

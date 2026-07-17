@@ -11,6 +11,11 @@
 | MPE with Litvis | 可视化叙事 / 数据驱动的文档 |
 | Draw.io Integration | 在 Markdown 中嵌入可编辑流程图 |
 
+### 自定义样式（1 个文件）
+| 文件 | 路径 | 作用 |
+|------|------|------|
+| style.less | `~/.local/state/mume/style.less`（新版）+ `~/.mume/style.less`（旧版兼容） | MPE 预览全局样式：背景网格、标题、字体、代码块、表格等全部视觉效果 |
+
 ### 设置（3 项）
 | 设置项 | 值 | 作用 |
 |--------|-----|------|
@@ -35,7 +40,8 @@ chmod +x install.sh
 ### 手动安装
 如果脚本不可用，也可以手动操作：
 1. 在 VSCode 扩展商店搜索安装上述 3 个扩展
-2. Cmd+Shift+P → `Preferences: Open User Settings (JSON)` → 粘贴 `markdown-settings.json` 中的内容
+2. 将 `style.less` 复制到 `~/.local/state/mume/style.less`（macOS/Linux）或 `%USERPROFILE%\.local\state\mume\style.less`（Windows）
+3. Cmd+Shift+P → `Preferences: Open User Settings (JSON)` → 粘贴 `markdown-settings.json` 中的内容
 
 ## 验证
 打开任意 `.md` 文件，右键 → `Markdown Preview Enhanced: Open Preview` 即可看到效果。

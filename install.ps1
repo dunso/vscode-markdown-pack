@@ -40,11 +40,35 @@ foreach ($ext in $extensions) {
     }
 }
 
-# ---- Step 2: 合并设置 ----
+# ---- Step 2: 安装 style.less 自定义样式 ----
 Write-Host ""
-Write-Host "--- 第 2 步：写入 Markdown 设置 ---" -ForegroundColor Yellow
+Write-Host "--- 第 2 步：安装 Markdown 预览样式 ---" -ForegroundColor Yellow
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$mumeDir = "$env:USERPROFILE\.local\state\mume"
+$legacyMumeDir = "$env:USERPROFILE\.mume"
+
+if (-not (Test-Path $mumeDir)) {
+    New-Item -ItemType Directory -Path $mumeDir -Force | Out-Null
+}
+if (-not (Test-Path $legacyMumeDir)) {
+    New-Item -ItemType Directory -Path $legacyMumeDir -Force | Out-Null
+}
+
+$styleSource = Join-Path $scriptDir "style.less"
+if (Test-Path $styleSource) {
+    Copy-Item -Path $styleSource -Destination $mumeDir -Force
+    Copy-Item -Path $styleSource -Destination $legacyMumeDir -Force
+    Write-Host "[OK] style.less → $mumeDir\style.less" -ForegroundColor Green
+    Write-Host "[OK] style.less → $legacyMumeDir\style.less (兼容旧版)" -ForegroundColor Green
+} else {
+    Write-Host "[!] 未找到 style.less，跳过" -ForegroundColor Yellow
+}
+
+# ---- Step 3: 合并设置 ----
+Write-Host ""
+Write-Host "--- 第 3 步：写入 Markdown 设置 ---" -ForegroundColor Yellow
+
 python "$scriptDir\merge_settings.py"
 
 Write-Host ""
